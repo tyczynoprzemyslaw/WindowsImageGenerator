@@ -1,94 +1,47 @@
 
-import tkinter as tk
-from PIL import Image
+import drawsvg as draw
 
-from PIL import Image, ImageDraw
+# 1. Stwórz płótno (Drawing)
+# szerokość 300px, wysokość 200px
+d = draw.Drawing(5000, 5000)
 
-# 1. Stwórz główne okno
-root = tk.Tk()
-root.title("Test prostokąta w Tkinter")
-
-# 2. Stwórz płótno (Canvas) o wymiarach 400x500 z białym tłem
-# Dajemy mu lekki margines (highlightthickness=0)
-canvas = tk.Canvas(root, width=1000, height=500, bg='white', highlightthickness=0)
-canvas.pack() # Dopasuj płótno do okna
-
-# -----------------------------------------------------------------
-# TUTAJ DOKŁADNA SKŁADNIA
-# -----------------------------------------------------------------
-# Chcemy narysować prostokąt (np. ramę okna)
-# Zaczynając od punktu (50, 50)
-# Kończąc w punkcie (350, 450)
-# (Szerokość = 350-50 = 300px, Wysokość = 450-50 = 400px)
-
+# 2. Narysuj prostokąt
+# (x, y, szerokość, wysokość, ...opcje)
+START_A = 50
+START_B = 50
+width = 500
+high = 235
 frame_width = 8
+how_many_glazes = 5
 
-x1 = 50
-y1 = 50
-x2 = 800
-y2 = 450
+o3 = Window
 
-#podpasodpoa
-
-x1_inside =  x1+ frame_width
-y1_inside =  y1+ frame_width
-x2_inside =  x2- frame_width
-y2_inside =  y2- frame_width
-
-x_middle = x1 + ((x2-x1)/2)
-y_middle = y1 + ((y2-y1)/2)
-
-podział = 2
-
-bok_slupka_a = x_middle - (frame_width/2)
-bok_slupka_b = x_middle + (frame_width/2)
-
-
-
-canvas.create_rectangle(
-    x1, y1, x2, y2, 
-    outline='black',  # Kolor ramki
-    width=2           # Grubość ramki
-)
-
-canvas.create_rectangle(
-    x1_inside, y1_inside, x2_inside, y2_inside, 
-    outline='black',  # Kolor ramki
-    width=2           # Grubość ramki
-)
-
-for x in range(1,podział):
+Frame = [START_A, START_B, width, high]
+inner_frame = []
+d.append(draw.Rectangle(Frame[0],Frame[1],Frame[2],Frame[3],
+                        fill="#ffffff",       # Wypełnienie (szary-niebieski)
+                        stroke='black',       # Kolor obramowania
+                        stroke_width=2))      # Grubość obramowania
+#def draw_columns(how_many_glazes):
     
-    co_ile_slupek = (x2_inside-x1_inside)/(podział)
-    print (co_ile_slupek)
-    srodek_slupka= x1_inside + x * co_ile_slupek
-    lewy_bok_slupka = srodek_slupka - frame_width/2
-    prawy_bok_slupka = srodek_slupka + frame_width/2
+def draw_inner_frame(Frame): #Tutaj widzę, że powinno to być prosciej zrobione. Plus rekurencja jak znalazł
+    inner_START_A = 50+frame_width
+    inner_START_B = 50+frame_width
+    inner_width = 500 - 2* frame_width
+    inner_high = 235 - 2* frame_width
 
-    canvas.create_line(
-        lewy_bok_slupka ,y1_inside, lewy_bok_slupka, y2_inside,
-        fill='black',  # Kolor ramki
-        width=2   
-    )
+    d.append(draw.Rectangle(inner_START_A, inner_START_B, inner_width, inner_high,
+                        fill="#ffffff",       # Wypełnienie (szary-niebieski)
+                        stroke='black',       # Kolor obramowania
+                        stroke_width=2))      # Grubość obramowania
 
-    canvas.create_line(
-        prawy_bok_slupka ,y1_inside, prawy_bok_slupka, y2_inside,
-        fill='black',  # Kolor ramki
-        width=2   
-    )
 
-"""canvas.create_line(
-    bok_slupka_a ,y1_inside, bok_slupka_a, y2_inside,
-    fill='black',  # Kolor ramki
-    width=2   
-)
 
-canvas.create_line(
-    bok_slupka_b ,y1_inside, bok_slupka_b, y2_inside,
-    fill='black',  # Kolor ramki
-    width=2   
-)"""
-# -----------------------------------------------------------------
+draw_inner_frame(Frame) #W sumie to to samo co draw_frame :/ 
 
-# 3. Uruchom pętlę główną okna
-root.mainloop()
+
+# 5. Zapisz plik
+d.save_svg('figury.svg') 
+
+# Opcjonalnie: Wyświetl w Jupyter Notebook
+# d

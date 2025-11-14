@@ -1,4 +1,8 @@
 class Window:
-    size = [50,50,350,350]
-    how_many_glaze = 1
-    
+    def __init__(self):
+        self.size = size
+        self.how_many_glaze = how_many_glaze
+        self.frame_width = frame_width
+    # okno ma wymiary, szerokośc ramki i skrzydła
+
+
