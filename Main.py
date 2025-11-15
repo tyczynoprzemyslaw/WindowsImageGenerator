@@ -1,4 +1,3 @@
-
 import drawsvg as draw
 
 # 1. Stwórz płótno (Drawing)
@@ -14,7 +13,7 @@ high = 235
 frame_width = 8
 how_many_glazes = 5
 
-o3 = Window
+o3 = Window() 
 
 Frame = [START_A, START_B, width, high]
 inner_frame = []
