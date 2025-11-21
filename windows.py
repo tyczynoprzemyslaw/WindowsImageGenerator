@@ -32,10 +32,16 @@ class RegularSash(BaseSash):
 
     def open_points(self, direction):
         """Left or right is site of klamka"""
-        left_middle = (0,self.height/2)
-        top_right = (self.width,self.height)
-        bottom_right = (self.width,0)
-        return left_middle, top_right, bottom_right
+        if direction == "left":
+            left_middle = (0,self.height/2)
+            top_right = (self.width,self.height)
+            bottom_right = (self.width,0)
+            return left_middle, top_right, bottom_right
+        else:
+            bottom_left = (0,0)
+            top_left = (0,self.height)
+            right_middle = (self.width, self.height/2)
+            return bottom_left, top_left, right_middle
 
 class SlideSash:
     pass
