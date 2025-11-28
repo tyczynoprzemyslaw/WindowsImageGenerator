@@ -32,3 +32,16 @@ class TestFixPoints(TestCase):
 
 if __name__ == '__main__':
     main()
+
+class TestSlidePoints(TestCase):
+        def setUp(self):
+            self.sash = windows.SlideSash(300,230,2)
+
+        def test_slide_points_returns_6_elements(self):
+            points = self.sash.slide_points()
+            expected = ((150,0),(150,230),(0,0),(300,0),(0,230),(300,230))
+            self.assertEqual(expected, points)
+
+
+if __name__ == '__main__':
+    main()

@@ -43,9 +43,20 @@ class RegularSash(BaseSash):
             right_middle = (self.width, self.height/2)
             return bottom_left, top_left, right_middle
 
-class SlideSash:
-    pass
-
+class SlideSash(BaseSash):
+    def __init__(self, width, height, sash_count):
+        super().__init__(width, height)
+        self.sash_count = sash_count
+    
+    def slide_points(self):
+        middle_bottom = (self.width/2,0)
+        middle_top = (self.width/2,self.height)
+        left_bottom = (0,0)
+        right_bottom = (self.width,0)
+        left_top = (0,self.height)
+        right_top =(self.width,self.height)
+        return middle_bottom, middle_top, left_bottom, right_bottom,left_top, right_top
+        
 
 class FixSash:
     pass
@@ -58,5 +69,7 @@ if __name__ == "__main__":
     w1 = Window(100,150,5,8)
     print (w1.__dict__)
     sash1 = BaseSash(100,500)
-    print(RegularSash.open_points.__doc__)
+    #print(RegularSash.open_points.__doc__)
+    sash2 = SlideSash(100,150,5)
+    print (sash2.sash_count)
 
